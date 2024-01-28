@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { populate,summary } from './render';
-import { Hpass,Huser } from './login';
 import {useNavigate} from 'react-router-dom' 
 
 import './App'
@@ -12,24 +11,20 @@ function HomeUI()
 
   var [todos,setTodos] = useState([]);
   const navigate = useNavigate();
+
+
+
+
+  var userdata = {};
+
+
   
 
+   async function Fetchdata(){
 
-  useEffect(() => {
-    
-    if(Hpass === '' || Huser === '')
-    navigate('/');
-  }, [navigate]);
-
-  
-  function fetchdata(){
-
-    fetch("https://taskmaster-l4jm.onrender.com/all",{
+    await fetch("https://taskmaster-l4jm.onrender.com/all",{
       method:'GET',
-      headers :{
-        'username':Huser,
-        'password':Hpass
-      }
+      headers : {...userdata}
     }).then(function(resolve){
         if(!resolve.ok)
         console.log("Cant Parse the info...");
@@ -42,6 +37,32 @@ function HomeUI()
 
   }
 
+  useEffect(()=>{
+    const user = JSON.parse(localStorage.getItem('User-info'));
+
+    
+
+    if(user)
+    {
+     
+      userdata = user;
+
+      console.log(userdata)
+      Fetchdata();
+    }
+    else
+    {
+      
+      navigate('/');
+    }
+ 
+
+  },[])
+  
+
+  
+  
+
   
 
   function done(id){
@@ -50,8 +71,7 @@ function HomeUI()
           method:'POST',
           headers : {
             'Content-Type': 'application/json',
-            'username':Huser,
-            'password':Hpass
+            ...userdata
           },
           body: JSON.stringify({ "id":id })
         }).then(function(response){
@@ -76,8 +96,7 @@ function HomeUI()
       method:'DELETE',
       headers : {
         'Content-Type': 'application/json',
-        'username':Huser,
-        'password':Hpass
+        ...userdata
       },
       body: JSON.stringify({ "id":id })
     }).then(function(response){
@@ -102,8 +121,7 @@ function HomeUI()
       method:'POST',
       headers : {
         'Content-Type': 'application/json',
-        'username':Huser,
-        'password':Hpass
+        ...userdata
       },
       body: JSON.stringify({ 
               "title":t.value,
@@ -131,7 +149,7 @@ function HomeUI()
 
   
 
-  useEffect(fetchdata,[]);
+ 
 
   
 
@@ -195,6 +213,11 @@ function HomeUI()
     </div>
 
 </div>
+
+
+
+    
+
   )
 
 }

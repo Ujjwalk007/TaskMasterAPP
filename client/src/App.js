@@ -2,7 +2,8 @@ import './App.css';
 import './home'
 import { Author } from './render';
 import { HomeUI } from './home';
-import { Login,SignUp } from './login';
+import { Login} from './login';
+import { SignUp } from './signup';
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 
 
