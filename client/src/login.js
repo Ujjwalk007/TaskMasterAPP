@@ -14,7 +14,7 @@ function Login()
         const navigate = useNavigate();
 
 
-        function LoginHandler()
+        async function LoginHandler()
         {
                 
 
@@ -23,7 +23,7 @@ function Login()
 
                 console.log(u,p)
 
-                fetch('https://taskmaster-l4jm.onrender.com/log',{method:'POST',
+                await fetch('https://taskmaster-l4jm.onrender.com/log',{method:'POST',
                 headers : {
                   'Content-Type': 'application/json'
                 },

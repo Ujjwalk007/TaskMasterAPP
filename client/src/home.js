@@ -15,7 +15,7 @@ function HomeUI()
 
 
 
-  var userdata = {};
+  const [userdata,Setuserdata] = useState({});
 
 
   
@@ -44,20 +44,24 @@ function HomeUI()
 
     if(user)
     {
-     
-      userdata = user;
 
-      console.log(userdata)
-      Fetchdata();
+      Setuserdata({"username":user.username,"password":user.password});
     }
     else
     {
-      
       navigate('/');
     }
  
 
   },[])
+
+  useEffect(()=>{
+
+      console.log(userdata);
+      Fetchdata();
+
+
+  },[userdata])
   
 
   
