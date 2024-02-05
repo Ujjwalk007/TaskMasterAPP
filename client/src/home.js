@@ -57,7 +57,7 @@ function HomeUI()
 
   useEffect(()=>{
 
-      console.log(userdata);
+     
       Fetchdata();
 
 
